@@ -17,7 +17,7 @@ try {
 	$loader->registerDirs(array(
 		'../app/controllers',
 		'../app/models',
-		'../app/helpers'
+		'../app/views'
 		))->register();
 
 	/* Next we create our dependency injection
@@ -47,12 +47,6 @@ try {
         $url = new \Phalcon\Mvc\Url();
         $url->setBaseUri('/Phalcon-Docs-Test-Repo/');
         return $url;
-    });
-
-    /* Try to instantiate new Tag Helpers */
-    $di->set('myTags',  function()
-    {
-    	return new MyTags();
     });
 
 	/* Here instantiate our new application and pass
