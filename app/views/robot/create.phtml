@@ -13,14 +13,15 @@ use Phalcon\Tag;
 		<link rel="stylesheet" href="">
 	</head>
 	<body>
-		<?php echo Tag::Form(array('store')); ?>
-		<label for="name">Robots Name: </label>
+
 		<?php
-		echo Tag::textfield('name');
-		echo Mytags::audioField('test');
+		echo MyTags::audioField(array(
+			'name' => 'test',
+			'id' => 'audio_test',
+			'src' => '/path/to/audio.mp3'
+			));
 		?>
 
-		<input type="submit">
 	</form>
 	</body>
 </html>
