@@ -14,15 +14,27 @@ try {
 	 * controllers and models dirs.
 	 */
 	$loader = new \Phalcon\Loader();
-	$loader->registerDirs(
-		array('../app/controllers', '../app/models')
-		)->register();
+	$loader->registerDirs(array(
+		'../app/controllers',
+		'../app/models',
+		'../app/helpers'
+		))->register();
 
 	/* Next we create our dependency injection
 	 * system. From there, we inject our
 	 * Views and set a base URI for the project
 	 */
 	$di = new Phalcon\DI\FactoryDefault();
+
+	$di->set('db', function()
+	{
+		return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
+			"host"		=>	"localhost",
+			"username"	=>	"root",
+			"password"	=>	"",
+			"dbname"	=>	"phalcon_tests"
+		));
+	});
 
 	$di->set('view', function()
 	{
@@ -31,20 +43,24 @@ try {
 		return $view;
 	});
 
-	$di->set('url', function()
-	{
-		$url = new \Phalcon\Mvc\Url();
-		$url->setBaseUrl('/tutorial/');
-		return $url;
-	});
+	$di->set('url', function(){
+        $url = new \Phalcon\Mvc\Url();
+        $url->setBaseUri('/Phalcon-Docs-Test-Repo/');
+        return $url;
+    });
+
+    /* Try to instantiate new Tag Helpers */
+    $di->set('myTags',  function()
+    {
+    	return new MyTags();
+    });
 
 	/* Here instantiate our new application and pass
 	 * it our dependecy injection service.
 	 */
 	$application = new \Phalcon\Mvc\Application($di);
 	echo $application->handle()->getContent();
-}
 
-catch(\Phalcon\Exception $e) {
-	echo "PhalconException: ", $e->$getMessage();
+} catch(\Phalcon\Exception $e) {
+     echo "PhalconException: ", $e->getMessage();
 }

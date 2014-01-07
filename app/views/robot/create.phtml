@@ -1,0 +1,26 @@
+<?php
+
+use Phalcon\Tag;
+
+?>
+
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Create Robot</title>
+		<link rel="stylesheet" href="">
+	</head>
+	<body>
+
+		<?php
+		echo MyTags::audioField(array(
+			'name' => 'test',
+			'id' => 'audio_test',
+			'src' => '/path/to/audio.mp3'
+			));
+		?>
+
+	</body>
+</html>
